@@ -1,0 +1,68 @@
+/Joseph Slone's Circle collision tester 2/9/2015
+
+#include<iostream>
+#include<cmath>
+using namespace std;
+
+//Creates a structure that defines the center and radius of circles.
+struct Circle2D
+{
+	float h;
+	float k;
+	float r;
+};
+
+//Since we are testing two circles, we create two circles from the structure above. We create two distance variables which will represent the x distance and the y distance between the centers of the circles, while d represents the actual distance between the circles. Radsum will become the sum of the circle's radii to compare to d to see if the two circles collide. 
+Circle2D Circle1;
+Circle2D Circle2;
+float distancex = 0;
+float distancey = 0;
+float d = 0;
+float radsum = 0;
+
+int main()
+{
+	Start:
+	system("cls");
+	//We require the user to enter the center and radius for both circles. In all, that is six inputs.
+	cout<<"I see you need to test if two circles collide."<<endl;
+	cout<<"I assume you know the Center(H,K) and your radius(r) of your circles."<<endl;
+	cout<<"So let's start with the center of the first circle. Enter H's value now. ";
+	cin>>Circle1.h;
+	cout<<"Ok,now let's enter the K value. ";
+	cin>>Circle1.k;
+	cout<<"Good. Now for the radius of that circle: ";
+	cin>>Circle1.r;
+	cout<<"Awesome. Now for the center of the Second circle. Enter H's value now. ";
+	cin>>Circle2.h;
+	cout<<"Ok,now let's enter the K value. ";
+	cin>>Circle2.k;
+	cout<<"Good. Now for the radius of that circle: ";
+	cin>>Circle2.r;
+	//Here, we find the x distance and the y distance by taking the difference of the circle's centers.
+	distancex = Circle2.h - Circle1.h;
+	distancey = Circle2.k - Circle1.k;
+	//It's hard to explain with just words, but we can create a triangle using distancex and distancey. The resulting hypontinuse is the value of the actual distance between the circles, or d. We use the pythagorean theorem (In this case, it's d^2 = distancex^2 + distancey^2) to find d.
+	d += distancex*distancex;
+	d += distancey*distancey;
+	//Since d^2 is equal to the sum of the distances' squares, we need to take the square root of the sum to find d.
+	d = sqrt(d);
+	//We find the sum of the two radii, or the maximum possible distance the circles can be apart and still collide.
+	radsum = Circle1.r + Circle2.r;
+	cout<<"\nThe distance between the centers is "<<d<<"!"<<endl;
+	cout<<"The sum of the radii is "<<radsum<<"!"<<endl;
+	//If the distance is within the radsum, then the circles collide.
+	if (d <= radsum)
+	{
+		cout<<"The circles collide!"<<endl;
+		system("pause");
+		goto Start;
+	}
+	else
+	{
+		cout<<"The circles do not collide!"<<endl;
+		system("pause");
+		goto Start;
+	}
+	return 0;
+}
